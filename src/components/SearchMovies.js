@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-//import noPoster from '../assets/images/no-poster.jpg';
 
 function SearchMovies(){
 	const [movies, setMovies] = useState([]);
@@ -7,17 +6,16 @@ function SearchMovies(){
 	const pelicula = useRef(null);
 
 	// Credenciales de API
-	const apiKey = '566747f3'; // Intenta poner cualquier cosa antes para probar
+	const apiKey = '566747f3'; 
 
 	useEffect(() => {
-
 		if(keyword !== "") {
 			fetch(`http://www.omdbapi.com/?s=${keyword}&apikey=${apiKey}`)
 			.then((data) => {
 				return data.json();
 			})
 			.then((result) => {
-				//console.log(movies);
+				console.log("%cSe montó y actualizó el componente", 'color:green'); 
 				const resultSet = result.Search;
 				setMovies([ ...resultSet]);
 			})
@@ -30,9 +28,11 @@ function SearchMovies(){
 		
 	}, [keyword]);
 
-	/*useEffect(() => {
-		console.log("Actualizando...");
-	}, [movies]);*/
+	useEffect(() => {
+		return () => { 
+			console.log("%cSe desmontó el componente", 'color:red'); 
+		}
+	}, []);
 
 	const buscarPelicula = async (e) => {
 		e.preventDefault();
